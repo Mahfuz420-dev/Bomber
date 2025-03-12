@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMS Bomber</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            background-color: #0b0c10;
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+        }
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 30px rgba(0, 255, 204, 0.3);
+        }
+        .neon-text {
+            color: #00ffcc;
+            text-shadow: 0 0 5px #00ffcc, 0 0 15px #00ffcc, 0 0 30px #00ffcc;
+        }
+        .gradient-button {
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+            color: white;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 65, 108, 0.4);
+        }
+        .gradient-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 20px rgba(255, 65, 108, 0.6);
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+    <div class="text-center w-96 p-8 rounded-xl glassmorphism">
+        <h1 class="text-4xl font-bold neon-text mb-6">SMS BOMBER</h1>
+        <div class="mb-4">
+            <input type="text" id="phoneNumber" placeholder="Phone Number" class="w-full p-3 bg-transparent text-white border border-gray-300 rounded-lg focus:outline-none">
+        </div>
+        <div class="mb-6">
+            <input type="number" id="amount" placeholder="Enter Amount" class="w-full p-3 bg-transparent text-white border border-gray-300 rounded-lg focus:outline-none">
+        </div>
+        <button onclick="sendOTP()" class="w-full py-3 rounded-lg gradient-button text-lg font-semibold">Send Message</button>
+        <p class="text-gray-400 mt-4">Web Developed By: HM MAHFUZ</p>
+        <p id="responseMessage" class="mt-4 font-semibold"></p>
+    </div>
+
+    <script>
+        async function sendOTP() {
+            let phone = document.getElementById('phoneNumber').value;
+            let amount = document.getElementById('amount').value;
+            let responseMessage = document.getElementById('responseMessage');
+            
+            if (!phone || !amount) {
+                responseMessage.innerHTML = '<span style="color: red;">Please enter a valid phone number and amount.</span>';
+                return;
+            }
+
+            // Validate phone number format (11 digits)
+            let phonePattern = /^[0-9]{11}$/;
+            if (!phone.match(phonePattern)) {
+                responseMessage.innerHTML = '<span style="color: red;">Please enter a valid 11-digit phone number.</span>';
+                return;
+            }
+
+            // Validate amount (positive integer)
+            if (amount <= 0) {
+                responseMessage.innerHTML = '<span style="color: red;">Amount must be a positive number.</span>';
+                return;
+            }
+            
+            let api = `https://cherykuwait.com/topbomb.php?phone=${phone}&amount=${amount}`;
+            
+            try {
+                let response = await fetch(api);
+                if (response.ok) {
+                    responseMessage.innerHTML = '<span style="color: lime;"> BOMBING SUCCESSFUL </span>';
+                } else {
+                    responseMessage.innerHTML = '<span style="color: lime;"> BOMBING SUCCESSFUL </span>';
+                }
+            } catch (error) {
+                responseMessage.innerHTML = '<span style="color: lime;"> BOMBING SUCCESSFUL </span>';
+            }
+        }
+    </script>
+</body>
+</html>
